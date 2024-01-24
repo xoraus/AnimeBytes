@@ -1,45 +1,61 @@
 package io.xoraus.CyberScribeHub.services.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import io.xoraus.CyberScribeHub.exceptions.ResourceNotFoundException;
 import io.xoraus.CyberScribeHub.entities.User;
 import io.xoraus.CyberScribeHub.payloads.UserDto;
 import io.xoraus.CyberScribeHub.repositories.UserRepo;
 import io.xoraus.CyberScribeHub.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	private UserRepo userRepo;
 
-	@Override
-	public UserDto createUser(UserDto user) {
-		return null;
+    @Override
+	public UserDto createUser(UserDto userDto) {
+		User user = this.dtoToUser(userDto);
+		User savedUser = this.userRepo.save(user);
+		return this.userToDto(savedUser);
 	}
 
 	@Override
-	public UserDto update(UserDto user, Integer userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDto updateUser(UserDto userDto, Integer userId) {
+		User user = this.userRepo.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", " Id ", userId));
+		user.setName(userDto.getName());
+		user.setEmail(userDto.getEmail());
+		user.setPassword(userDto.getPassword());
+		user.setAbout(userDto.getAbout());
+
+		User updatedUser = this.userRepo.save(user);
+        return this.userToDto(updatedUser);
 	}
 
 	@Override
 	public UserDto getUserById(Integer userId) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = this.userRepo.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", " Id ", userId));
+
+		return this.userToDto(user);
 	}
 
 	@Override
 	public List<UserDto> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> users = this.userRepo.findAll();
+        return users.stream().map(this::userToDto).collect(Collectors.toList());
 	}
 
 	@Override
 	public void deleteUser(Integer userId) {
-		// TODO Auto-generated method stub
+		User user = this.userRepo.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
+		this.userRepo.delete(user);
 
 	}
 	
