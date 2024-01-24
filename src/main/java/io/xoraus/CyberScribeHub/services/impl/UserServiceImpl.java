@@ -8,16 +8,22 @@ import io.xoraus.CyberScribeHub.entities.User;
 import io.xoraus.CyberScribeHub.payloads.UserDto;
 import io.xoraus.CyberScribeHub.repositories.UserRepo;
 import io.xoraus.CyberScribeHub.services.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
+	private final UserRepo userRepo;
+	private final ModelMapper modelMapper;
 
 	@Autowired
-	private UserRepo userRepo;
+	public UserServiceImpl(UserRepo userRepo, ModelMapper modelMapper) {
+		this.userRepo = userRepo;
+        this.modelMapper = modelMapper;
+    }
 
-    @Override
+	@Override
 	public UserDto createUser(UserDto userDto) {
 		User user = this.dtoToUser(userDto);
 		User savedUser = this.userRepo.save(user);
@@ -60,26 +66,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public User dtoToUser(UserDto userDto) {
-		User user = new User();
-		user.setId(userDto.getId());
-		user.setName(userDto.getName());
-		user.setEmail(userDto.getEmail());
-		user.setAbout(userDto.getAbout());
-		user.setPassword(userDto.getPassword());
-
-		return user;
+		return this.modelMapper.map(userDto, User.class);
 	}
 	
 	public UserDto userToDto(User user) {
-	    UserDto userDto = new UserDto();
-	    userDto.setId(user.getId());
-	    userDto.setName(user.getName());
-	    userDto.setEmail(user.getEmail());
-	    userDto.setPassword(user.getPassword());
-	    userDto.setAbout(user.getAbout());
-
-	    return userDto;
+		return this.modelMapper.map(user, UserDto.class);
 	}
-
-
 }
