@@ -32,7 +32,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     public static final String[] PUBLIC_URLS = {"/api/v1/auth/**", "/v3/api-docs", "/v2/api-docs",
-            "/swagger-resources/**", "/swagger-ui/**", "/webjars/**",
+            "/swagger-resources/**", "/swagger-ui/**", "/webjars/**", "/swagger-ui/index.html"
 
     };
     private final CustomUserDetailService customUserDetailService;
@@ -52,7 +52,8 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
                 .requestMatchers(PUBLIC_URLS).permitAll()
-//                .requestMatchers(HttpMethod.GET).permitAll()
+                .requestMatchers(HttpMethod.GET).permitAll()
+                .requestMatchers("/v3/api-docs").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))

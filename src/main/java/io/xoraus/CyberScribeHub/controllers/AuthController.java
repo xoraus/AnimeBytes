@@ -1,5 +1,6 @@
 package io.xoraus.CyberScribeHub.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.xoraus.CyberScribeHub.entities.User;
 import io.xoraus.CyberScribeHub.exceptions.ApiException;
 import io.xoraus.CyberScribeHub.payloads.JwtAuthRequest;
@@ -24,6 +25,7 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/v1/auth/")
+@Tag(name = "Authentication Controllers", description = "Handles authentication-related operations such as user login and token generation.")
 public class AuthController {
     private final JwtTokenHelper jwtTokenHelper;
     private final UserDetailsService userDetailsService;

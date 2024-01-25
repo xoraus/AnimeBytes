@@ -6,6 +6,10 @@ Welcome to CyberScribe! The ultimate Blogging Application API project, where cre
 
 Dive into the world of seamless blogging with CyberScribe API! Empowering developers to effortlessly integrate and interact with a dynamic blogging platform. Whether you're crafting a mesmerizing frontend, a dazzling mobile app, or any other client, CyberScribe APIs have got your back for managing all your blog-related activities.
 
+## Swagger Docs
+
+![Docs](SwaggerDocs.png)
+
 ## ✨ Features
 
 - **Authentication:**
