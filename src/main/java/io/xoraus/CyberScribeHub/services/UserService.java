@@ -6,6 +6,7 @@ import io.xoraus.CyberScribeHub.payloads.UserDto;
 
 public interface UserService {
 
+	UserDto registerNewUser(UserDto user);
 	UserDto createUser(UserDto user);
 	UserDto getUserById(Integer userId);
 	List<UserDto> getAllUsers();
