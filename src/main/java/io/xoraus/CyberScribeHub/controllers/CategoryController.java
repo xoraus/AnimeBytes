@@ -1,5 +1,6 @@
 package io.xoraus.CyberScribeHub.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.xoraus.CyberScribeHub.payloads.ApiResponse;
 import io.xoraus.CyberScribeHub.payloads.CategoryDto;
 import io.xoraus.CyberScribeHub.services.CategoryService;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categories")
+@Tag(name = "Category Controller", description = "Handles operations related to categories, such as creating, retrieving, and updating categories for organizing posts.")
 public class CategoryController {
 
     private final CategoryService categoryService;

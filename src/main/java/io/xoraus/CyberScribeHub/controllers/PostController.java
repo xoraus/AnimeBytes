@@ -1,5 +1,6 @@
 package io.xoraus.CyberScribeHub.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.xoraus.CyberScribeHub.config.AppConstants;
 import io.xoraus.CyberScribeHub.payloads.ApiResponse;
 import io.xoraus.CyberScribeHub.payloads.PostDto;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/")
+@Tag(name = "Post Controller", description = "Manages posts and their associated actions, including creation, retrieval, and updates of posts on the platform.")
 public class PostController {
 
     private final PostService postService;

@@ -1,5 +1,6 @@
 package io.xoraus.CyberScribeHub.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.xoraus.CyberScribeHub.payloads.ApiResponse;
 import io.xoraus.CyberScribeHub.payloads.UserDto;
 import io.xoraus.CyberScribeHub.services.UserService;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "User Controller", description = "Manages user-related operations, including user creation, retrieval, and updates.")
 public class UserController {
     private final UserService userService;
 
